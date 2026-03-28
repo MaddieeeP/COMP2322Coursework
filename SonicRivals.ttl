@@ -1,0 +1,10 @@
+@base <http://rival.org/> .
+@prefix ont: <http://ont.rival.org/> .
+
+<http://sonic.org/sonic> <http://ont.sonic.org/name> "Sonic The Hedgehog" .
+<http://sonic.org/sonic> <http://ont.sonic.org/rivals> <shadow> , <silver> .
+<shadow> ont:name "Shadow The Hedgehog" .
+<shadow> ont:rivals <http://sonic.org/sonic> .
+<silver> ont:name "Silver The Hedgehog" .
+<silver> ont:friends <amy> .
+<silver> ont:rivals <http://sonic.org/sonic> .
