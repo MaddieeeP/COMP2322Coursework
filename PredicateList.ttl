@@ -1,3 +1,0 @@
-@base <http://example.org/> .
-@prefix ont: <http://ont.example.org/> .
-<nmg> ont:name "Nick Gibbins" ; ont:worksFor <uos> .
