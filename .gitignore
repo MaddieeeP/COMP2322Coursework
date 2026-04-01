@@ -21,6 +21,3 @@ cabal.project.local
 cabal.project.local~
 .HTF/
 .ghc.environment.*
-.vscode
-.gitignore
-sonic_v1
