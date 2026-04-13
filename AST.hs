@@ -10,8 +10,8 @@ module AST
   , Term(..)
   , TermOrVar(..)
   , FilterExpr(..)
-  , CompOp(..)
-  , AggregateFunc(..)
+  , Operator(..)
+  , AggFunc(..)
   ) where
 
 type VarName = String
@@ -52,9 +52,9 @@ data TriplePattern = TriplePattern
 
 -- RDF triple
 data Triple = Triple
-  { subject   :: Term
-  , predicate :: Term
-  , object    :: Term
+  { s   :: Term
+  , p   :: Term
+  , o   :: Term
   } deriving (Eq, Show)
 
 -- RDF value.
@@ -62,7 +62,7 @@ data Term
   = URI String
   | LitString String
   | LitInt Integer
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 
 data TermOrVar
