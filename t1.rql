@@ -1,0 +1,6 @@
+SELECT ?s ?p ?o
+WHERE { 
+    { GRAPH <foo> { ?s ?p ?o . } }
+UNION 
+    { GRAPH <bar> { ?s ?p ?o . } } 
+}

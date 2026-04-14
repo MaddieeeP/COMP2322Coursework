@@ -1,0 +1,6 @@
+SELECT ?s ?p (MAX(?o) AS ?m)
+WHERE { 
+    { GRAPH <quux> { ?s <http://example.org/ont/price> ?o . } }
+}
+
+#filter for integers?
