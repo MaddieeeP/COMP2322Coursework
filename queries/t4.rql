@@ -1,0 +1,10 @@
+SOURCE "quux"
+
+OUTPUT {
+    ?subject <http://example.org/ont/price> MAX(?price) .
+}
+
+WHERE {
+    ?subject <http://example.org/ont/price> ?price .
+}
+GROUP BY ?subject

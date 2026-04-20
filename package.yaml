@@ -1,0 +1,28 @@
+name: comp2322-coursework
+version: 0.1.0.0
+
+dependencies:
+  - base >= 4.7 && < 5
+  - containers
+  - array
+  - bytestring
+  - text
+  - mtl
+  - rdf4h
+
+library:
+  source-dirs: src
+  exposed-modules:
+    - AST
+    - Lexer
+    - Parser
+    - Evaluator
+
+executables:
+  coursework:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+      - -Wall
+    dependencies:
+      - comp2322-coursework

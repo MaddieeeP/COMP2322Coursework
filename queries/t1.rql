@@ -1,0 +1,10 @@
+SOURCE "foo"
+SOURCE "bar"
+
+OUTPUT {
+    ?s ?p ?o .
+}
+
+WHERE {
+    ?s ?p ?o .
+}

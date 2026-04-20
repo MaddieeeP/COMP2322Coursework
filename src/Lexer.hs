@@ -7584,7 +7584,7 @@ alex_action_25 = \p s -> PT p TNot
 alex_action_26 = \p s -> PT p (TInt (read s))
 alex_action_27 = \p s -> PT p (TVar (tail s))
 alex_action_28 = \p s -> PT p (TString (init (tail s)))
-alex_action_29 = \p s -> PT p (TURI s)
+alex_action_29 = \p s -> PT p (TURI (init (tail s)))
 alex_action_30 = \p s -> error ("Lexical error at " ++ show p ++ ": unrecognised character " ++ s)
 
 #define ALEX_NOPRED 1
