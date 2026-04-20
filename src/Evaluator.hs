@@ -15,7 +15,6 @@ import qualified Data.Map.Strict as Map
 import Control.Monad (foldM)
 import Data.Maybe (mapMaybe)
 import AST
-import Control.Monad.RWS (MonadWriter(pass))
 
 newtype Graph = Graph
   { graphTriples :: [Triple]
@@ -55,33 +54,20 @@ loadSource (File fname) = do
     contents <- readFile ("data/" ++ fname ++ ".ttl")
     pure (Graph (parseTurtle contents))
 
--- TODO replace this with the real Turtle parser when ready
+-- Parse Turtle with rdf4h and convert into internal triples.
 parseTurtle :: String -> [Triple]
-parseTurtle input = 
-    let result = RDF.parseString (RDF.TurtleParser Nothing Nothing) (T.pack input)
-    in case (result :: Either RDF.ParseFailure (RDF.RDF TList)) of
-        Left err -> error ("Turtle parse error: " ++ show err)
-        Right rdf -> map convertTriple (RDF.triplesOf rdf)
-
-
-convertTriple :: RDF.Triple -> Triple
-convertTriple t = Triple (convertNode (RDF.subjectOf t)) 
-                         (convertNode (RDF.predicateOf t)) 
-                         (convertNode (RDF.objectOf t))
-
-
-convertNode :: RDF.Node -> Term
-convertNode (RDF.UNode uri) = URI (T.unpack uri)
-convertNode (RDF.LNode lit) =
-    case lit of
-        RDF.PlainL txt -> LitString (T.unpack txt)
-        RDF.PlainLL txt _ -> LitString (T.unpack txt)
-        RDF.TypedL txt dType 
-            | "integer" `List.isInfixOf` show dType -> LitInt (read (T.unpack txt))
-            | otherwise -> LitString (T.unpack txt)
-
-convertNode (RDF.BNode blank) = URI ("_:" ++ T.unpack blank)
-convertNode n = error ("Unexpected RDF node: " ++ show n)
+parseTurtle input =
+  either (error . ("Turtle parse error: " ++) . show) (map (\t -> Triple (toTerm $ RDF.subjectOf t) (toTerm $ RDF.predicateOf t) (toTerm $ RDF.objectOf t)) . RDF.triplesOf) parsed
+  where
+    parsed = RDF.parseString (RDF.TurtleParser Nothing Nothing) (T.pack input) :: Either RDF.ParseFailure (RDF.RDF TList)
+    toTerm (RDF.UNode uri) = URI (T.unpack uri)
+    toTerm (RDF.BNode blank) = URI ("_:" ++ T.unpack blank)
+    toTerm (RDF.LNode lit) = case lit of
+      RDF.TypedL txt dType | "integer" `List.isInfixOf` show dType -> LitInt (read $ T.unpack txt)
+      RDF.TypedL txt _ -> LitString (T.unpack txt)
+      RDF.PlainL txt -> LitString (T.unpack txt)
+      RDF.PlainLL txt _ -> LitString (T.unpack txt)
+    toTerm n = error ("Unexpected RDF node: " ++ show n)
 
 
 
@@ -191,17 +177,10 @@ applyFilterExpr f = filter (evalFilter f)
 partition :: VarName -> Solutions -> [[Binding]]
 partition v sols =
   let
-    pairs = [(show (Map.lookup v b), [b]) | b <- sols]
+    pairs = [(Map.lookup v b, [b]) | b <- sols]
     grouped = Map.fromListWith (++) pairs
   in
     Map.elems grouped
-
--- Flat grouping helper
-applyGroup :: Where -> Solutions -> Solutions
-applyGroup w sols =
-  case whereGroupBy w of
-    Just v  -> concat (partition v sols)
-    Nothing -> sols
 
 
 -- Group bindings for aggregate output
@@ -261,7 +240,22 @@ makeTriple grp (TriplePattern ps pp po) b =
 makeTriples :: Group -> [TriplePattern] -> Binding -> [Triple]
 makeTriples grp out b = [t | tp <- out, Just t <- [makeTriple grp tp b]]
 
+termHasAgg :: TermOrVar -> Bool
+termHasAgg (Agg _) = True
+termHasAgg _ = False
+
+outputHasAgg :: Output -> Bool
+outputHasAgg (Output patterns) = any hasAggPattern patterns
+  where
+    hasAggPattern (TriplePattern subj pred obj) =
+      termHasAgg subj || termHasAgg pred || termHasAgg obj
+
+groupOutputBindings :: Output -> Group -> [Binding]
+groupOutputBindings out grp
+  | outputHasAgg out = List.nub grp
+  | otherwise = grp
+
 -- Build final output triples
 makeOutput :: Output -> GroupedSolutions -> [Triple]
-makeOutput (Output out) grouped =
-  concatMap (\grp -> concatMap (makeTriples grp out) grp) grouped
+makeOutput out@(Output patterns) grouped =
+  concatMap (\grp -> concatMap (makeTriples grp patterns) (groupOutputBindings out grp)) grouped
