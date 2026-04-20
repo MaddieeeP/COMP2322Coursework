@@ -1,6 +1,0 @@
-SELECT ?s ?p ?o
-WHERE { 
-    { GRAPH <qux> { ?s <http://example.org/ont/studiesAt> <http://example.org/uos> . } }
-UNION 
-    { GRAPH <qux> { ?s <http://example.org/ont/worksFor> <http://example.org/uos> . } } 
-}

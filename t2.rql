@@ -1,4 +1,0 @@
-SELECT ?s ?p ?o
-WHERE { 
-    { GRAPH <baz> { ?s <http://example.org/ont/hasAge> ?o . FILTER(?o > 21) } }
-}
