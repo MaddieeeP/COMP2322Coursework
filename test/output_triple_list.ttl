@@ -4,3 +4,5 @@
 <http://example.org/charlie> <http://example.org/ont/isAdult> "yes" .
 <http://example.org/dave> <http://example.org/ont/adultAge> 30 .
 <http://example.org/dave> <http://example.org/ont/isAdult> "yes" .
+<http://example.org/ellie> <http://example.org/ont/adultAge> 26 .
+<http://example.org/ellie> <http://example.org/ont/isAdult> "yes" .

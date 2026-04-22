@@ -1,2 +1,2 @@
-<http://example.org/book1> <http://example.org/ont/price> 15 .
-<http://example.org/book2> <http://example.org/ont/price> 25 .
+<http://example.org/book1> <http://example.org/ont/price> 10 .
+<http://example.org/book2> <http://example.org/ont/price> 15 .

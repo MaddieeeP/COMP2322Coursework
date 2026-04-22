@@ -1,3 +1,2 @@
 <http://example.org/alice> <http://example.org/ont/studiesAt> <http://example.org/uos> .
 <http://example.org/bob> <http://example.org/ont/worksFor> <http://example.org/uos> .
-<http://example.org/dave> <http://example.org/ont/worksFor> <http://example.org/uos> .

@@ -1,3 +1,4 @@
 <http://example.org/alice> <http://example.org/ont/selected> <http://example.org/uos> .
 <http://example.org/bob> <http://example.org/ont/selected> <http://example.org/uos> .
-<http://example.org/dave> <http://example.org/ont/selected> <http://example.org/uos> .
+<http://example.org/dave> <http://example.org/ont/selected> <http://example.org/solent> .
+<http://example.org/ellie> <http://example.org/ont/selected> <http://example.org/solent> .

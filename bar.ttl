@@ -2,7 +2,7 @@
 @prefix ont: <http://ont.example.org/> .
 
 <http://example.org/a> <http://ont.example.org/connect> <http://example.org/b> .
-<b> <http://ont.example.org/connect> <c>
+<b> <http://ont.example.org/connect> <c> .
 <http://example.org/c> ont:connect <http://example.org/d> .
 <d> ont:connect <e> .
 <unique> ont:connect <unique2> .
