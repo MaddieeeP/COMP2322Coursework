@@ -1,1 +1,11 @@
-<http://example.org/b> <http://example.org/q> <http://example.org/c> .
+@base <http://example.org/> .
+@prefix ont: <http://ont.example.org/> .
+
+<http://example.org/a> <http://ont.example.org/connect> <http://example.org/b> .
+<b> <http://ont.example.org/connect> <c>
+<http://example.org/c> ont:connect <http://example.org/d> .
+<d> ont:connect <e> .
+<unique> ont:connect <unique2> .
+<6> ont:largerThan <5> .
+<10> ont:multipleOf <5> .
+<15> ont:largerThan <5> ; ont:multipleOf <5> .

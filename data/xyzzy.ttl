@@ -1,3 +1,4 @@
 <http://example.org/fido> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/Dog> .
 <http://example.org/whiskers> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/Cat> .
 <http://example.org/Cat> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://example.org/Mammal> .
+<http://example.org/felix> <http://example.org/type> <http://example.org/Cat> .

@@ -1,3 +1,10 @@
+@base <http://example.org/> .
+@prefix ont: <http://ont.example.org/> .
+
 <http://example.org/book1> <http://example.org/ont/price> 10 .
-<http://example.org/book1> <http://example.org/ont/price> 15 .
-<http://example.org/book2> <http://example.org/ont/price> 25 .
+<book2> <http://example.org/ont/price> 15 .
+<http://example.org/book3> ont:price 25 .
+<book4> ont:price 12 .
+<http://example.org/book4> <http://example.org/ont/name> "Book 4" .
+<http://example.org/book5> <http://example.org/ont/price> "null" .
+<http://example.org/book5> <http://example.org/ont/pageCount> 500 .
