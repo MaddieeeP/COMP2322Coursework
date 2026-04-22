@@ -41,7 +41,7 @@ SUM         { \p s -> PT p TSUM }
 $digit+    { \p s -> PT p (TInt (read s)) }
 \?$alpha[$alpha$digit\_]*  { \p s -> PT p (TVar (tail s)) }
 \"[^\"]*\"  { \p s -> PT p (TString (init (tail s))) }
-\<[^>]*\>   { \p s -> PT p (TURI s) }
+\<[^>]*\>   { \p s -> PT p (TURI (init (tail s))) }
 
 .           { \p s -> error ("Lexical error at " ++ show p ++ ": unrecognised character " ++ s) }
 

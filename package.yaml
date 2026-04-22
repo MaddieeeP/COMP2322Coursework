@@ -12,6 +12,9 @@ dependencies:
 
 library:
   source-dirs: src
+  build-tools:
+    - alex
+    - happy
   exposed-modules:
     - AST
     - Lexer
@@ -19,10 +22,18 @@ library:
     - Evaluator
 
 executables:
-  coursework:
+  tsparq:
     main: Main.hs
     source-dirs: app
     ghc-options:
       - -Wall
     dependencies:
       - comp2322-coursework
+
+tests:
+  coursework-test:
+    main: Spec.hs
+    source-dirs: test
+    dependencies:
+      - comp2322-coursework
+      - hspec

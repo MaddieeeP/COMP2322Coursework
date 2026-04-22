@@ -1,0 +1,3 @@
+<http://example.org/alice> <http://example.org/ont/hasAge> 25 .
+<http://example.org/charlie> <http://example.org/ont/hasAge> 21 .
+<http://example.org/dave> <http://example.org/ont/hasAge> 30 .

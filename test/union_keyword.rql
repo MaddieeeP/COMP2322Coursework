@@ -1,0 +1,11 @@
+SOURCE "qux"
+
+OUTPUT {
+  ?s <http://example.org/ont/selected> ?o .
+}
+
+WHERE {
+  ?s <http://example.org/ont/worksFor> ?o .
+} UNION {
+  ?s <http://example.org/ont/studiesAt> ?o .
+}

@@ -1,0 +1,12 @@
+SOURCE "quux"
+
+OUTPUT {
+  ?subject <http://example.org/ont/minPrice> MIN(?price) .
+  ?subject <http://example.org/ont/priceCount> COUNT(?price) .
+  ?subject <http://example.org/ont/priceSum> SUM(?price) .
+}
+
+WHERE {
+  ?subject <http://example.org/ont/price> ?price .
+}
+GROUP BY ?subject

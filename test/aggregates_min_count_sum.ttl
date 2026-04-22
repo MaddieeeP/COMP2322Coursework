@@ -1,0 +1,6 @@
+<http://example.org/book1> <http://example.org/ont/minPrice> 10 .
+<http://example.org/book1> <http://example.org/ont/priceCount> 2 .
+<http://example.org/book1> <http://example.org/ont/priceSum> 25 .
+<http://example.org/book2> <http://example.org/ont/minPrice> 25 .
+<http://example.org/book2> <http://example.org/ont/priceCount> 1 .
+<http://example.org/book2> <http://example.org/ont/priceSum> 25 .

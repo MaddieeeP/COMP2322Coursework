@@ -1,0 +1,5 @@
+SOURCE "foo"
+
+OUTPUT {
+  <http://example.org/static-s> <http://example.org/static-p> <http://example.org/static-o> .
+}

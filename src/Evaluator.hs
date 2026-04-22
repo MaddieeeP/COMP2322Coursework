@@ -48,11 +48,11 @@ evalQuery query = do
   let outputTriples = makeOutput (queryOutput query) groupedSolutions
   pure (Graph (List.nub outputTriples))
 
--- Load a source graph from data/<name>.ttl
+-- Load a source graph from <name>.ttl in the current working directory.
 loadSource :: Source -> IO Graph
 loadSource (File fname) = do
-    contents <- readFile ("data/" ++ fname ++ ".ttl")
-    pure (Graph (parseTurtle contents))
+  contents <- readFile (fname ++ ".ttl")
+  pure (Graph (parseTurtle contents))
 
 -- Parse Turtle with rdf4h and convert into internal triples.
 parseTurtle :: String -> [Triple]

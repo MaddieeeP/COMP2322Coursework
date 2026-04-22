@@ -1,0 +1,6 @@
+<http://example.org/alice> <http://example.org/ont/adultAge> 25 .
+<http://example.org/alice> <http://example.org/ont/isAdult> "yes" .
+<http://example.org/charlie> <http://example.org/ont/adultAge> 21 .
+<http://example.org/charlie> <http://example.org/ont/isAdult> "yes" .
+<http://example.org/dave> <http://example.org/ont/adultAge> 30 .
+<http://example.org/dave> <http://example.org/ont/isAdult> "yes" .

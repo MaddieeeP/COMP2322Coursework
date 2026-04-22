@@ -1,0 +1,9 @@
+SOURCE "baz"
+
+OUTPUT {
+  ?s <http://example.org/ont/hasAge> ?age .
+}
+
+WHERE FILTER (!(?age > 25) && ?age <= 25) {
+  ?s <http://example.org/ont/hasAge> ?age .
+}
