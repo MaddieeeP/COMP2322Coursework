@@ -1,4 +1,10 @@
+@base <http://example.org/> .
+@prefix ont: <http://ont.example.org/> .
+
 <http://example.org/alice> <http://example.org/ont/hasAge> 25 .
 <http://example.org/bob> <http://example.org/ont/hasAge> 18 .
 <http://example.org/charlie> <http://example.org/ont/hasAge> 21 .
 <http://example.org/dave> <http://example.org/ont/hasAge> 30 .
+<ellie> <http://example.org/ont/hasAge> 26 .
+<felix> ont:hasAge 37 .
+<alphabet> <http://example.org/ont/hasCount> 26 .

@@ -1,4 +1,5 @@
 <http://example.org/alice> <http://example.org/ont/studiesAt> <http://example.org/uos> .
 <http://example.org/bob> <http://example.org/ont/worksFor> <http://example.org/uos> .
-<http://example.org/charlie> <http://example.org/ont/livesIn> <http://example.org/soton> .
-<http://example.org/dave> <http://example.org/ont/worksFor> <http://example.org/uos> .
+<http://example.org/charlie> <http://example.org/ont/livesIn> <http://example.org/uos> .
+<http://example.org/dave> <http://example.org/ont/studiesAt> <http://example.org/solent> .
+<http://example.org/ellie> <http://example.org/ont/worksFor> <http://example.org/solent> .
