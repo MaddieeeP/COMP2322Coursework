@@ -5,6 +5,10 @@ module Evaluator
   , emptyGraph
   , unionGraph
   , evalQuery
+  , renderTriple
+  , renderTerm
+  , compareTriple
+  , compareTerm
   ) where
 
 import qualified Data.Text as T
@@ -12,6 +16,7 @@ import qualified Data.RDF as RDF
 import Data.RDF.Graph.TList
 import qualified Data.List as List
 import qualified Data.Map.Strict as Map
+import qualified Data.Set as Set
 import Control.Monad (foldM)
 import Data.Maybe (mapMaybe)
 import AST
@@ -32,7 +37,10 @@ emptyGraph :: Graph
 emptyGraph = Graph []
 
 unionGraph :: Graph -> Graph -> Graph
-unionGraph (Graph left) (Graph right) = Graph (List.nub (left ++ right))
+unionGraph (Graph left) (Graph right) = Graph (dedup (left ++ right))
+
+dedup :: Ord a => [a] -> [a]
+dedup = Set.toList . Set.fromList
 
 evalQuery :: Query -> IO Graph
 evalQuery query = do
@@ -46,7 +54,7 @@ evalQuery query = do
           Nothing -> [matchedSolutions]
           Just whereClause -> groupForAgg (whereGroupBy whereClause) matchedSolutions
   let outputTriples = makeOutput (queryOutput query) groupedSolutions
-  pure (Graph (List.nub outputTriples))
+  pure (Graph (dedup outputTriples))
 
 -- Load a source graph from <name>.ttl in the current working directory.
 loadSource :: Source -> IO Graph
@@ -63,7 +71,7 @@ parseTurtle input =
     toTerm (RDF.UNode uri) = URI (T.unpack uri)
     toTerm (RDF.BNode blank) = URI ("_:" ++ T.unpack blank)
     toTerm (RDF.LNode lit) = case lit of
-      RDF.TypedL txt dType | "integer" `List.isInfixOf` show dType -> LitInt (read $ T.unpack txt)
+      RDF.TypedL txt dType | T.unpack dType == "http://www.w3.org/2001/XMLSchema#integer" -> LitInt (read $ T.unpack txt)
       RDF.TypedL txt _ -> LitString (T.unpack txt)
       RDF.PlainL txt -> LitString (T.unpack txt)
       RDF.PlainLL txt _ -> LitString (T.unpack txt)
@@ -87,7 +95,7 @@ matchTerm (Concrete y) t =
   if y == t
     then Just Map.empty
   else Nothing
-matchTerm (Agg _) _ = Just Map.empty
+matchTerm (Agg _) _ = error "Aggregate functions not allowed in WHERE pattern"
 
 -- Merge one assignment into a binding
 mergeStep :: Binding -> (VarName, Term) -> Maybe Binding
@@ -145,12 +153,16 @@ matchBasic pats (Graph triples) =
 
 
 compareTerms :: Operator -> Term -> Term -> Bool
-compareTerms Eq a b = a==b
+compareTerms Eq a b = a == b
 compareTerms Ne a b = a /= b
 compareTerms Ge (LitInt a) (LitInt b) = a >= b
 compareTerms Gt (LitInt a) (LitInt b) = a > b
 compareTerms Le (LitInt a) (LitInt b) = a <= b
 compareTerms Lt (LitInt a) (LitInt b) = a < b
+compareTerms Ge (LitString a) (LitString b) = a >= b
+compareTerms Gt (LitString a) (LitString b) = a > b
+compareTerms Le (LitString a) (LitString b) = a <= b
+compareTerms Lt (LitString a) (LitString b) = a < b
 compareTerms _ _ _ = False
 
 -- Resolve a term with one binding
@@ -252,10 +264,35 @@ outputHasAgg (Output patterns) = any hasAggPattern patterns
 
 groupOutputBindings :: Output -> Group -> [Binding]
 groupOutputBindings out grp
-  | outputHasAgg out = List.nub grp
+  | outputHasAgg out = dedup grp
   | otherwise = grp
 
 -- Build final output triples
 makeOutput :: Output -> GroupedSolutions -> [Triple]
 makeOutput out@(Output patterns) grouped =
   concatMap (\grp -> concatMap (makeTriples grp patterns) (groupOutputBindings out grp)) grouped
+
+-- Render a term in canonical N-Triples form.
+renderTerm :: Term -> String
+renderTerm (URI u) = "<" ++ u ++ ">"
+renderTerm (LitString strVal) = show strVal
+renderTerm (LitInt i) = show i
+
+-- Render a triple in canonical N-Triples form.
+renderTriple :: Triple -> String
+renderTriple (Triple subj predicateTerm obj) =
+  renderTerm subj ++ " " ++ renderTerm predicateTerm ++ " " ++ renderTerm obj ++ " ."
+
+-- Ordering per spec: strings < ints < URIs, default Haskell Ord within each type.
+compareTerm :: Term -> Term -> Ordering
+compareTerm (LitString a) (LitString b) = compare a b
+compareTerm (LitInt a) (LitInt b) = compare a b
+compareTerm (URI a) (URI b) = compare a b
+compareTerm (LitString _) _ = LT
+compareTerm _ (LitString _) = GT
+compareTerm (LitInt _) _ = LT
+compareTerm _ (LitInt _) = GT
+
+compareTriple :: Triple -> Triple -> Ordering
+compareTriple (Triple s1 p1 o1) (Triple s2 p2 o2) =
+  compareTerm s1 s2 <> compareTerm p1 p2 <> compareTerm o1 o2

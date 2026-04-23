@@ -23,3 +23,5 @@ cabal.project.local~
 .HTF/
 .ghc.environment.*
 .vscode
+src/Lexer.hs
+src/Parser.hs

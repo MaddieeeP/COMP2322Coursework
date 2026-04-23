@@ -52,8 +52,9 @@ import AST
 
 Query : SourceList Output WhereOpt { Query $1 $2 $3 }
 
-SourceList : Source { [$1] }
-        | SourceList Source { $1 ++ [$2] }
+SourceList : SourceListR { reverse $1 }
+SourceListR : Source { [$1] }
+            | SourceListR Source { $2 : $1 }
 
 Source : SOURCE string { File $2 }
 
@@ -70,8 +71,9 @@ Pattern : TriplePatternList { Basic $1 }
         | FILTER '(' FilterExpr ')' '{' Pattern '}' { Filtered $6 $3 }
         | '{' Pattern '}' { $2 }
 
-TriplePatternList : TriplePattern { [$1] }
-             | TriplePatternList TriplePattern { $1 ++ [$2] }
+TriplePatternList : TriplePatternListR { reverse $1 }
+TriplePatternListR : TriplePattern { [$1] }
+                   | TriplePatternListR TriplePattern { $2 : $1 }
 
 TriplePattern : TermOrVar TermOrVar TermOrVar '.' { TriplePattern $1 $2 $3 }
 

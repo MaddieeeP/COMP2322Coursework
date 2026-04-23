@@ -1,12 +1,11 @@
 module Main (main) where
 
-import AST
 import Evaluator
 import Lexer (alexScanTokens)
 import Parser (parseQuery)
 import Control.Monad (forM_)
 import Data.Char (isSpace)
-import Data.List (sort)
+import Data.List (sort, sortBy)
 import Test.Hspec
 
 main :: IO ()
@@ -41,7 +40,7 @@ runQueryFromFile queryPath = do
   queryText <- readFile queryPath
   let query = parseQuery (alexScanTokens queryText)
   graph <- evalQuery query
-  pure (sort (map renderTriple (graphTriples graph)))
+  pure (map renderTriple (sortBy compareTriple (graphTriples graph)))
 
 loadExpectedLines :: FilePath -> IO [String]
 loadExpectedLines ttlPath = do
@@ -50,15 +49,6 @@ loadExpectedLines ttlPath = do
 
 trim :: String -> String
 trim = reverse . dropWhile isSpace . reverse . dropWhile isSpace
-
-renderTriple :: Triple -> String
-renderTriple (Triple subj predicateTerm obj) =
-  renderTerm subj ++ " " ++ renderTerm predicateTerm ++ " " ++ renderTerm obj ++ " ."
-
-renderTerm :: Term -> String
-renderTerm (URI u) = "<" ++ u ++ ">"
-renderTerm (LitString strVal) = show strVal
-renderTerm (LitInt i) = show i
 
 courseworkTaskFixtures :: [Fixture]
 courseworkTaskFixtures =

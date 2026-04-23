@@ -55,7 +55,7 @@ data Triple = Triple
   { s   :: Term
   , p   :: Term
   , o   :: Term
-  } deriving (Eq, Show)
+  } deriving (Eq, Ord, Show)
 
 -- RDF value.
 data Term

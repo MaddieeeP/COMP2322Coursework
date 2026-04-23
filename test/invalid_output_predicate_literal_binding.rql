@@ -1,0 +1,9 @@
+SOURCE "baz"
+
+OUTPUT {
+  ?s ?age <http://example.org/ont/ageMarker> .
+}
+
+WHERE {
+  ?s <http://example.org/ont/hasAge> ?age .
+}
