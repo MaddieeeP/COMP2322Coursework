@@ -85,16 +85,16 @@ parseTurtle input =
 
 -- Handle basic union and filtered patterns
 matchPattern :: Pattern -> Graph -> Map.Map String Graph -> Solutions
-matchPattern (Basic triplePatterns) graph _  = matchBasic triplePatterns graph
-matchPattern (Union left right)     graph ng =
+matchPattern (Basic triplePatterns) graph _ = matchBasic triplePatterns graph
+matchPattern (Union left right) graph ng =
   matchPattern left graph ng ++ matchPattern right graph ng
-matchPattern (Join left right)      graph ng =
-  let lSols = matchPattern left  graph ng
+matchPattern (Join left right) graph ng =
+  let lSols = matchPattern left graph ng
       rSols = matchPattern right graph ng
   in [merged | ls <- lSols, rs <- rSols, Just merged <- [merge ls rs]]
 matchPattern (Filtered pattern expr) graph ng =
   applyFilterExpr expr (matchPattern pattern graph ng)
-matchPattern (Scoped name pattern)  _     ng =
+matchPattern (Scoped name pattern) _ ng =
   case Map.lookup name ng of
     Just g  -> matchPattern pattern g ng
     Nothing -> error ("GRAPH reference to unknown source: " ++ name)
