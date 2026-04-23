@@ -1,2 +1,5 @@
-<http://example.org/fido> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/Animal> .
-<http://example.org/whiskers> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/Animal> .
+<http://example.org/X1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/Z1> .
+<http://example.org/X2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/Z1> .
+<http://example.org/X2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/Z2> .
+<http://example.org/XE1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/ZE1> .
+<http://example.org/XE2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/ZE2> .

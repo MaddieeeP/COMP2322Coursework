@@ -52,11 +52,11 @@ trim = reverse . dropWhile isSpace . reverse . dropWhile isSpace
 
 courseworkTaskFixtures :: [Fixture]
 courseworkTaskFixtures =
-  [ Fixture "runs Task 1 graph union" "test/task1_union.rql" "test/task1_union.ttl"
-  , Fixture "runs Task 2 pattern match with >= filter" "test/task2_age_ge21.rql" "test/task2_age_ge21.ttl"
-  , Fixture "runs Task 3 filter with == and ||" "test/task3_study_or_work.rql" "test/task3_study_or_work.ttl"
-  , Fixture "runs Task 4 GROUP BY with MAX" "test/task4_max_price.rql" "test/task4_max_price.ttl"
-  , Fixture "runs Task 5 graph edit join" "test/task5_graph_edit.rql" "test/task5_graph_edit.ttl"
+  [ Fixture "runs Task 1 graph union" "queries/t1.rql" "test/task1_union.ttl"
+  , Fixture "runs Task 2 pattern match with >= filter" "queries/t2.rql" "test/task2_age_ge21.ttl"
+  , Fixture "runs Task 3 filter with == and ||" "queries/t3.rql" "test/task3_study_or_work.ttl"
+  , Fixture "runs Task 4 GROUP BY with MAX" "queries/t4.rql" "test/task4_max_price.ttl"
+  , Fixture "runs Task 5 graph edit join" "queries/t5.rql" "test/task5_graph_edit.ttl"
   ]
 
 languageFeatureFixtures :: [Fixture]
@@ -66,7 +66,7 @@ languageFeatureFixtures =
   , Fixture "supports FILTER operators >, <= and !" "test/filter_gt_le_not.rql" "test/filter_gt_le_not.ttl"
   , Fixture "supports MIN, COUNT and SUM aggregates with GROUP BY" "test/aggregates_min_count_sum.rql" "test/aggregates_min_count_sum.ttl"
   , Fixture "allows queries without WHERE" "test/no_where.rql" "test/no_where.ttl"
-  , Fixture "supports list of triple patterns in WHERE (3-way join)" "test/where_three_way_join.rql" "test/where_three_way_join.ttl"
+  , Fixture "performs a three-way join across graphs to find matching triples" "test/where_three_way_join.rql" "test/where_three_way_join.ttl"
   , Fixture "supports list of triple patterns in OUTPUT" "test/output_triple_list.rql" "test/output_triple_list.ttl"
   ]
 

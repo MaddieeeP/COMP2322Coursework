@@ -1,9 +1,0 @@
-SOURCE "qux"
-
-OUTPUT {
-  ?s ?p <http://example.org/uos> .
-}
-
-WHERE FILTER (?p == <http://example.org/ont/studiesAt> || ?p == <http://example.org/ont/worksFor>) {
-  ?s ?p <http://example.org/uos> .
-}

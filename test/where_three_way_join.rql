@@ -7,6 +7,6 @@ OUTPUT {
 
 WHERE {
   ?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?y .
-  ?y <http://www.w3.org/2000/01/rdf-schema#subClassOf> ?mid .
-  ?mid <http://www.w3.org/2000/01/rdf-schema#subClassOf> ?z .
+  ?y <http://www.w3.org/2000/01/rdf-schema#subClassOf> ?z .
+  ?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?again .
 }
