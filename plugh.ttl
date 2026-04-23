@@ -1,5 +1,6 @@
 <http://example.org/Y1> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://example.org/Z1> .
 <http://example.org/Y2> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://example.org/Z2> .
+<http://example.org/Y2> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://example.org/Z3> .
 
 <http://example.org/XE2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/YE2> .
 <http://example.org/YE2> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://example.org/ZE2> .
