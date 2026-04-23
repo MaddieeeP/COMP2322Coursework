@@ -15,6 +15,8 @@ GROUP       { \p s -> PT p TGROUP }
 BY          { \p s -> PT p TBY }
 UNION       { \p s -> PT p TUNION }
 FILTER      { \p s -> PT p TFILTER }
+GRAPH       { \p s -> PT p TGRAPH }
+AND         { \p s -> PT p TAND }
 
 MAX         { \p s -> PT p TMAX }
 MIN         { \p s -> PT p TMIN }
@@ -57,6 +59,8 @@ data Token =
   TBY             |
   TUNION          |
   TFILTER         |
+  TGRAPH          |
+  TAND            |
   TMAX            |
   TMIN            |
   TCOUNT          |

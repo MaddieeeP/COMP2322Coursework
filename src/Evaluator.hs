@@ -44,11 +44,14 @@ dedup = Set.toList . Set.fromList
 
 evalQuery :: Query -> IO Graph
 evalQuery query = do
-  sourceGraphs <- mapM loadSource (querySources query)
+  let sources = querySources query
+  sourceGraphs <- mapM loadSource sources
+  let sourceNames = [name | File name <- sources]
+  let namedGraphs = Map.fromList (zip sourceNames sourceGraphs)
   let inputGraph = foldr unionGraph emptyGraph sourceGraphs
   let matchedSolutions = case queryWhere query of
         Nothing -> [Map.empty]
-        Just whereClause -> matchPattern (wherePattern whereClause) inputGraph
+        Just whereClause -> matchPattern (wherePattern whereClause) inputGraph namedGraphs
   let groupedSolutions =
         case queryWhere query of
           Nothing -> [matchedSolutions]
@@ -81,12 +84,20 @@ parseTurtle input =
 
 
 -- Handle basic union and filtered patterns
-matchPattern :: Pattern -> Graph -> Solutions
-matchPattern (Basic triplePatterns) graph = matchBasic triplePatterns graph
-matchPattern (Union left right) graph =
-  matchPattern left graph ++ matchPattern right graph
-matchPattern (Filtered pattern expr) graph =
-  applyFilterExpr expr (matchPattern pattern graph)
+matchPattern :: Pattern -> Graph -> Map.Map String Graph -> Solutions
+matchPattern (Basic triplePatterns) graph _  = matchBasic triplePatterns graph
+matchPattern (Union left right)     graph ng =
+  matchPattern left graph ng ++ matchPattern right graph ng
+matchPattern (Join left right)      graph ng =
+  let lSols = matchPattern left  graph ng
+      rSols = matchPattern right graph ng
+  in [merged | ls <- lSols, rs <- rSols, Just merged <- [merge ls rs]]
+matchPattern (Filtered pattern expr) graph ng =
+  applyFilterExpr expr (matchPattern pattern graph ng)
+matchPattern (Scoped name pattern)  _     ng =
+  case Map.lookup name ng of
+    Just g  -> matchPattern pattern g ng
+    Nothing -> error ("GRAPH reference to unknown source: " ++ name)
 
 -- Match one term and return a binding piece
 matchTerm :: TermOrVar -> Term -> Maybe Binding

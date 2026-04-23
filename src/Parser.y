@@ -15,6 +15,8 @@ import AST
     BY     { PT _ TBY }
     UNION  { PT _ TUNION }
     FILTER { PT _ TFILTER }
+    GRAPH  { PT _ TGRAPH }
+    AND    { PT _ TAND }
 
     '{'    { PT _ TLBrace }
     '}'    { PT _ TRBrace }
@@ -44,6 +46,7 @@ import AST
     '||'   { PT _ TOr }
     '!'    { PT _ TNot }
 
+%left AND
 %left UNION
 %left '||'
 %left '&&'
@@ -67,8 +70,10 @@ GroupOpt :          { Nothing }
          | GROUP BY var { Just $3 }
 
 Pattern : TriplePatternList { Basic $1 }
+        | Pattern AND Pattern { Join $1 $3 }
         | Pattern UNION Pattern { Union $1 $3 }
         | FILTER '(' FilterExpr ')' '{' Pattern '}' { Filtered $6 $3 }
+        | GRAPH string '{' Pattern '}' { Scoped $2 $4 }
         | '{' Pattern '}' { $2 }
 
 TriplePatternList : TriplePatternListR { reverse $1 }

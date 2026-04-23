@@ -40,7 +40,9 @@ data Where = Where
 data Pattern
   = Basic [TriplePattern]
   | Union Pattern Pattern
+  | Join Pattern Pattern
   | Filtered Pattern FilterExpr
+  | Scoped String Pattern
   deriving (Eq, Show)
 
 -- Triple shape that allows variables
