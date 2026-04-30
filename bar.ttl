@@ -9,3 +9,5 @@
 <6> ont:largerThan <5> .
 <10> ont:multipleOf <5> .
 <15> ont:largerThan <5> ; ont:multipleOf <5> .
+
+"bar" <http://ont.example.org/false> "false"

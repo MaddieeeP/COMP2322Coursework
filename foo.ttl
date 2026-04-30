@@ -6,3 +6,27 @@
 <http://example.org/10> <http://ont.example.org/multipleOf> <http://example.org/5> .
 <http://example.org/15> <http://ont.example.org/largerThan> <http://example.org/5> .
 <http://example.org/15> <http://ont.example.org/multipleOf> <http://example.org/5> .
+
+"foo" <http://ont.example.org/false> "false"
+
+<http://example.org/jane> <http://ont.example.org/true> <http://example.org/true> .
+<http://example.org/true> <http://ont.example.org/hasName> "true" .
+<http://example.org/true> <http://ont.example.org/true> "Fred" .
+<http://example.org/true> <http://ont.example.org/true> "Sally" .
+<http://example.org/jane> <http://ont.example.org/false> "Fred" .
+<http://example.org/jane> <http://ont.example.org/false> "Sally" .
+<http://example.org/jane> <http://ont.example.org/hasName> "false" .
+<http://example.org/false> <http://ont.example.org/hasName> "Fred" .
+<http://example.org/false> <http://ont.example.org/hasName> "Sally" .
+
+<http://example.org/true> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
+<http://example.org/false> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
+<http://example.org/false> <http://xmlns.com/foaf/0.1/knows> <http://example.org/nmg> .
+
+"one" <http://www.w3.org/2002/07/owl#sameAs> "eins" .
+"uno" <http://www.w3.org/2002/07/owl#sameAs> "eins" .
+"two" <http://www.w3.org/2002/07/owl#sameAs> "zwei" .
+"zwei" <http://www.w3.org/2002/07/owl#sameAs> "dos" .
+
+"creator1" <http://purl.org/dc/elements/1.0/creator> "element1" .
+"creator2" <http://purl.org/dc/elements/1.1/creator> "element2 .
