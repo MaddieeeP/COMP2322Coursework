@@ -1,0 +1,13 @@
+SOURCE "foo"
+
+OUTPUT {
+    ?s ?p ?o .
+}
+
+WHERE {
+    <http://example.org/jane> NOT <http://ont.example.org/hasName> NOT "Fred" AND NOT "Sally" .
+    OR
+    NOT <http://example.org/jane> <http://ont.example.org/hasName> NOT "Fred" AND NOT "Sally" .
+    OR 
+    NOT <http://example.org/jane> NOT <http://ont.example.org/hasName> "Fred" OR "Sally".
+}

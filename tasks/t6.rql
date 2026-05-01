@@ -1,0 +1,17 @@
+SOURCE "foo"
+SOURCE "bar"
+SOURCE "baz"
+
+OUTPUT {
+    ?s ?p ?o .
+}
+
+WHERE {
+    GRAPH "foo" { ?s ?p ?o . }
+    AND NOT
+    GRAPH "baz" { ?s ?p ?o . }
+    OR
+    GRAPH "bar" { ?s ?p ?o . }
+    AND NOT
+    GRAPH "baz" { ?s ?p ?o . }
+}
