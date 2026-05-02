@@ -10,4 +10,4 @@
 <10> ont:multipleOf <5> .
 <15> ont:largerThan <5> ; ont:multipleOf <5> .
 
-"bar" <http://ont.example.org/false> "false"
+<http://example.org/bar> <http://ont.example.org/false> "false" .

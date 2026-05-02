@@ -6,6 +6,6 @@ OUTPUT {
 
 WHERE {
     ?s <http://purl.org/dc/elements/1.0/creator> ?o .
-    OR
+    UNION
     ?s <http://purl.org/dc/elements/1.1/creator> ?o .
 }

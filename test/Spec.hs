@@ -52,11 +52,16 @@ trim = reverse . dropWhile isSpace . reverse . dropWhile isSpace
 
 courseworkTaskFixtures :: [Fixture]
 courseworkTaskFixtures =
-  [ Fixture "runs Task 1 graph union" "queries/t1.rql" "test/task1_union.ttl"
-  , Fixture "runs Task 2 pattern match with >= filter" "queries/t2.rql" "test/task2_age_ge21.ttl"
-  , Fixture "runs Task 3 filter with == and ||" "queries/t3.rql" "test/task3_study_or_work.ttl"
-  , Fixture "runs Task 4 GROUP BY with MAX" "queries/t4.rql" "test/task4_max_price.ttl"
-  , Fixture "runs Task 5 graph edit join" "queries/t5.rql" "test/task5_graph_edit.ttl"
+  [ Fixture "runs Task 1 graph union" "tasks/t1.rql" "test/task1_union.ttl"
+  , Fixture "runs Task 2 pattern match with >= filter" "tasks/t2.rql" "test/task2_age_ge21.ttl"
+  , Fixture "runs Task 3 filter with == and ||" "tasks/t3.rql" "test/task3_study_or_work.ttl"
+  , Fixture "runs Task 4 GROUP BY with MAX" "tasks/t4.rql" "test/task4_max_price.ttl"
+  , Fixture "runs Task 5 graph edit join" "tasks/t5.rql" "test/task5_graph_edit.ttl"
+  , Fixture "runs Task 6 graph difference" "tasks/t6.rql" "test/task6_graph_difference.ttl"
+  , Fixture "runs Task 7 exactly-one pattern match" "tasks/t7.rql" "test/task7_exactly_one_condition.ttl"
+  , Fixture "runs Task 8 pattern non-matching" "tasks/t8.rql" "test/task8_person_without_knows.ttl"
+  , Fixture "runs Task 9 equivalence" "tasks/t9.rql" "test/task9_equivalence.ttl"
+  , Fixture "runs Task 10 further graph edits" "tasks/t10.rql" "test/task10_creator_rewrite.ttl"
   ]
 
 languageFeatureFixtures :: [Fixture]

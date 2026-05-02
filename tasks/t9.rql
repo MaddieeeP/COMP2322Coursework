@@ -5,11 +5,15 @@ OUTPUT {
 }
 
 WHERE {
-    ?x <http://www.w3.org/2002/07/owl#sameAs> ?y .
-    AND
-    ?y <http://www.w3.org/2002/07/owl#sameAs> ?z .
-    OR
-    ?x <http://www.w3.org/2002/07/owl#sameAs> ?y .
-    AND
-    ?z <http://www.w3.org/2002/07/owl#sameAs> ?y .
+    {
+        ?x <http://www.w3.org/2002/07/owl#sameAs> ?y .
+        ?y <http://www.w3.org/2002/07/owl#sameAs> ?z .
+    }
+    UNION
+    {
+        ?x <http://www.w3.org/2002/07/owl#sameAs> ?y .
+        ?z <http://www.w3.org/2002/07/owl#sameAs> ?y .
+    }
+
+    
 }

@@ -9,5 +9,5 @@
 <felix> ont:hasAge 37 .
 <alphabet> <http://example.org/ont/hasCount> 26 .
 
-"foo" <http://ont.example.org/false> "false"
-"bar" <http://ont.example.org/false> "false"
+<http://example.org/foo> <http://ont.example.org/false> "false" .
+<http://example.org/bar> <http://ont.example.org/false> "false" .

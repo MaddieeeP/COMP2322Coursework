@@ -1,0 +1,4 @@
+<http://example.org/jane> <http://ont.example.org/true> <http://example.org/true> .
+<http://example.org/true> <http://ont.example.org/hasName> "true" .
+<http://example.org/true> <http://ont.example.org/true> "Fred" .
+<http://example.org/true> <http://ont.example.org/true> "Sally" .
