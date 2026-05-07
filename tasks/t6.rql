@@ -8,10 +8,6 @@ OUTPUT {
 
 WHERE {
     GRAPH "foo" { ?s ?p ?o . }
-    AND NOT
-    GRAPH "baz" { ?s ?p ?o . }
-    OR
+    UNION
     GRAPH "bar" { ?s ?p ?o . }
-    AND NOT
-    GRAPH "baz" { ?s ?p ?o . }
 }

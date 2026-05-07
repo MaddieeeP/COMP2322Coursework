@@ -1,11 +1,9 @@
 SOURCE "foo"
 
 OUTPUT {
-    ?s ?p ?o .
+    ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
 }
 
 WHERE {
     ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
-    AND NOT
-    ?s <http://xmlns.com/foaf/0.1/knows> <http://example.org/nmg> .
 }
